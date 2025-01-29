@@ -25,3 +25,4 @@ class PostagemTableViewCell: UITableViewCell {
     }
 
 }
+
