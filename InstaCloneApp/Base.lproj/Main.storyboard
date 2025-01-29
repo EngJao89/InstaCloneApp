@@ -194,7 +194,61 @@
                     <view key="view" contentMode="scaleToFill" id="Awr-pA-9bX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-Nv-iBv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="celulaPostagens" rowHeight="427" id="6Z5-cO-EKr" customClass="PostagemTableViewCell" customModule="Instagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="427"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Z5-cO-EKr" id="C8g-Oe-KUu">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="427"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descrição da postagem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGB-fy-SJf">
+                                                    <rect key="frame" x="20" y="387" width="374" height="37"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bKe-Mf-17y">
+                                                    <rect key="frame" x="20" y="19" width="374" height="360"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="360" id="YVF-J5-hUv"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bKe-Mf-17y" firstAttribute="top" secondItem="C8g-Oe-KUu" secondAttribute="topMargin" constant="8" id="4Rr-hX-QZ9"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="xGB-fy-SJf" secondAttribute="trailing" id="FrU-UO-0za"/>
+                                                <constraint firstItem="xGB-fy-SJf" firstAttribute="top" secondItem="bKe-Mf-17y" secondAttribute="bottom" constant="8" id="H9N-hs-oQK"/>
+                                                <constraint firstItem="bKe-Mf-17y" firstAttribute="trailing" secondItem="C8g-Oe-KUu" secondAttribute="trailingMargin" id="I8w-6i-S5k"/>
+                                                <constraint firstItem="xGB-fy-SJf" firstAttribute="top" secondItem="bKe-Mf-17y" secondAttribute="bottom" constant="8" id="P8m-xb-fKM"/>
+                                                <constraint firstItem="xGB-fy-SJf" firstAttribute="bottom" secondItem="C8g-Oe-KUu" secondAttribute="bottomMargin" constant="8" id="TBj-UR-SbK"/>
+                                                <constraint firstItem="xGB-fy-SJf" firstAttribute="leading" secondItem="C8g-Oe-KUu" secondAttribute="leadingMargin" id="bd5-PM-wdY"/>
+                                                <constraint firstItem="bKe-Mf-17y" firstAttribute="leading" secondItem="C8g-Oe-KUu" secondAttribute="leadingMargin" id="lmK-up-2Ni"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descricaoPostagem" destination="xGB-fy-SJf" id="0Rc-3U-VwM"/>
+                                            <outlet property="fotoPostagem" destination="bKe-Mf-17y" id="wlS-GP-HDY"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nzA-z9-Bgu" id="BT8-Io-TQv"/>
+                                    <outlet property="delegate" destination="nzA-z9-Bgu" id="E7P-io-jc4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dHo-Nv-iBv" firstAttribute="leading" secondItem="FIq-Un-FcN" secondAttribute="leading" id="7g9-EH-BCc"/>
+                            <constraint firstItem="dHo-Nv-iBv" firstAttribute="bottom" secondItem="FIq-Un-FcN" secondAttribute="bottom" id="KCV-VC-k22"/>
+                            <constraint firstItem="dHo-Nv-iBv" firstAttribute="trailing" secondItem="FIq-Un-FcN" secondAttribute="trailing" id="KlR-y7-unf"/>
+                            <constraint firstItem="dHo-Nv-iBv" firstAttribute="top" secondItem="FIq-Un-FcN" secondAttribute="top" id="bGF-Js-b1t"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="FIq-Un-FcN"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="4OP-sO-1P2">
@@ -212,6 +266,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableViewPostagens" destination="dHo-Nv-iBv" id="IKe-VF-Sh1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PRV-Pv-sD4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="OxS-rn-ZeG" userLabel="Exit" sceneMemberID="exit"/>
