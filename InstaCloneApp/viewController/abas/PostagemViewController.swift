@@ -6,9 +6,9 @@
 //
 
 import UIKit
-
-import UIKit
 import FirebaseStorage
+import FirebaseAuth
+import FirebaseFirestore
 
 class PostagemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -16,12 +16,16 @@ class PostagemViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var descricao: UITextField!
     var imagePicker = UIImagePickerController()
     var storage: Storage!
+    var auth: Auth!
+    var firestore: Firestore!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         storage = Storage.storage()
+        auth = Auth.auth()
+        firestore = Firestore.firestore()
         imagePicker.delegate = self
         
     }
@@ -60,6 +64,32 @@ class PostagemViewController: UIViewController, UIImagePickerControllerDelegate,
             
             imagemPostagemRef.putData(imagemUpload, metadata: nil) { (metaData, erro) in
                 if erro == nil {
+                    
+                    imagemPostagemRef.downloadURL { (url, erro) in
+                        if let urlImagem = url?.absoluteString {
+                            if let descricao = self.descricao.text {
+                                if let usuarioLogado = self.auth.currentUser {
+                                    
+                                    let idUsuario = usuarioLogado.uid
+                                    
+                                    self.firestore
+                                        .collection("postagens")
+                                    .document(idUsuario)
+                                    .collection("postagens_usuario")
+                                    .addDocument(data: [
+                                        "descricao" : descricao,
+                                        "url": urlImagem
+                                    ]) { (erro) in
+                                        if erro == nil {
+                                            self.navigationController?.popViewController(animated: true)
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
                     print("sucesso")
                 }else{
                     print("Erro ao fazer upload")
