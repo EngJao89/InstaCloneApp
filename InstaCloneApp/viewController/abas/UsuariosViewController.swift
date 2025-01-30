@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestore
 
 class UsuariosViewController: UIViewController,
-    UITableViewDelegate, UITableViewDataSource {
+    UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tableViewUsuarios: UITableView!
     @IBOutlet weak var searchBarUsuario: UISearchBar!
@@ -21,6 +21,66 @@ class UsuariosViewController: UIViewController,
         super.viewDidLoad()
 
         firestore = Firestore.firestore()
+        self.searchBarUsuario.delegate = self
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        recuperarUsuarios()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            recuperarUsuarios()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if let textoPesquisa = searchBar.text {
+            if textoPesquisa != "" {
+                pesquisarUsuarios(texto: textoPesquisa)
+            }
+        }
+        
+    }
+    
+    func pesquisarUsuarios(texto: String){
+        
+        let listaFiltro: [Dictionary<String, Any>] = self.usuarios
+        self.usuarios.removeAll()
+        
+        for item in listaFiltro {
+            if let nome = item["nome"] as? String {
+                if nome.lowercased().contains(texto.lowercased()){
+                    self.usuarios.append(item)
+                }
+            }
+        }
+        
+        self.tableViewUsuarios.reloadData()
+        
+    }
+    
+    func recuperarUsuarios(){
+        
+        //Limpa listagem de postagens
+        self.usuarios.removeAll()
+        self.tableViewUsuarios.reloadData()
+        
+        firestore.collection("usuarios").getDocuments { (snapshotResultado, erro) in
+            
+            if let snapshot = snapshotResultado {
+                for document in snapshot.documents {
+                    let dados = document.data()
+                    self.usuarios.append(dados)
+                }
+                self.tableViewUsuarios.reloadData()
+            }
+            
+        }
+        
         
     }
     
@@ -30,20 +90,24 @@ class UsuariosViewController: UIViewController,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return self.usuarios.count
-        return 10
+        return self.usuarios.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let celula = tableView.dequeueReusableCell(withIdentifier: "celulaUsuario", for: indexPath)
         
-        celula.textLabel?.text = "Nome"
-        celula.detailTextLabel?.text = "email"
+        let indice = indexPath.row
+        let usuario = self.usuarios[indice]
+        
+        let nome = usuario["nome"] as? String
+        let email = usuario["email"] as? String
+        
+        celula.textLabel?.text = nome
+        celula.detailTextLabel?.text = email
         
         return celula
         
     }
     
 }
-
