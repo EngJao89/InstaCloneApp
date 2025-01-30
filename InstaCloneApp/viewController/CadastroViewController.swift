@@ -41,7 +41,8 @@ class CadastroViewController: UIViewController {
                                 .document( idUsuario )
                                 .setData([
                                     "nome": nome,
-                                    "email": email
+                                    "email": email,
+                                    "id": idUsuario
                                 ])
                             }
                             
