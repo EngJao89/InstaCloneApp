@@ -110,4 +110,27 @@ class UsuariosViewController: UIViewController,
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.tableViewUsuarios.deselectRow(at: indexPath, animated: true)
+        
+        let indice = indexPath.row
+        let usuario = self.usuarios[indice]
+        
+        self.performSegue(withIdentifier: "segueGaleria", sender: usuario)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "segueGaleria" {
+            let viewDestino = segue.destination as! GaleriaCollectionViewController
+            
+            viewDestino.usuario = sender as? Dictionary
+            
+        }
+        
+    }
+    
+    
 }
